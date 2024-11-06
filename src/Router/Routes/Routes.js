@@ -11,6 +11,7 @@ import Orders from '../../Pages/Orders/Orders';
 import ErrorPage from '../../Pages/Shared/ErrorPage';
 import SignUp from '../../Pages/SignUp/SignUp';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import Shop from '../../Pages/Home/Shop/Shop';
 
 const { createBrowserRouter } = require('react-router-dom');
 
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: '/services',
         element: <Services></Services>,
+      },
+      {
+        path: '/shop',
+        element: <Shop></Shop>,
       },
       {
         path: '/contact',
