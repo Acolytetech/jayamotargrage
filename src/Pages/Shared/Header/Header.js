@@ -2,9 +2,13 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/jaya  motar garge logo.png';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
+import { FaShoppingCart } from 'react-icons/fa'; // Import a cart icon from react-icons
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
+
+  // Dummy cart count, replace this with actual cart data from context or state
+  const cartItemCount = 5;
 
   const handleLogOut = () => {
     logOut().then().catch();
@@ -80,6 +84,16 @@ const Header = () => {
       </div>
       <div className='navbar-center hidden lg:flex'>
         <ul className='menu menu-horizontal'>{menuItems}</ul>
+      </div>
+      <div className='navbar-end'>
+        <Link to='/cart' className='relative'>
+          <FaShoppingCart className='text-2xl' />
+          {cartItemCount > 0 && (
+            <span className='badge badge-sm badge-primary absolute top-0 right-0'>
+              {cartItemCount}
+            </span>
+          )}
+        </Link>
       </div>
     </div>
   );

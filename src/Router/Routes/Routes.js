@@ -12,6 +12,7 @@ import ErrorPage from '../../Pages/Shared/ErrorPage';
 import SignUp from '../../Pages/SignUp/SignUp';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import Shop from '../../Pages/Home/Shop/Shop';
+import useCart  from '../../Pages/Home/Shop/Cart';
 
 const { createBrowserRouter } = require('react-router-dom');
 
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
         path: '/checkout/:id',
         element: <PrivateRoute><Checkout></Checkout></PrivateRoute>,
         loader: ({ params })=> fetch(`${process.env.REACT_APP_ApiUrl}/services/${params.id}`),
+      },
+      {
+        path: '/cart',
+        element: <useCart></useCart>,
       },
       {
         path: '/orders',

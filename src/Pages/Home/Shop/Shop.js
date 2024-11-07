@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useCart } from './Cart';
 
 const products = [
   { id: 1, name: 'Car Seat Covers', img: 'https://m.media-amazon.com/images/I/61p+XUWGPIL._SY300_SX300_.jpg', price: 29.99, description: 'Durable and stylish seat covers for all car models.' },
@@ -13,10 +14,11 @@ const products = [
   { id: 10, name: 'Steering Wheel Cover', img: 'https://m.media-amazon.com/images/I/61NQH52jwNL._AC_UY327_FMwebp_QL65_.jpg', price: 12.99, description: 'Comfortable, anti-slip cover for a better grip on your steering wheel.' },
 ];
 
+
 const Shop = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const { cart, addToCart, showPopup, popupProduct } = useCart();
 
-  // Filter products based on search term
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -24,7 +26,7 @@ const Shop = () => {
   return (
     <div>
       <h2 className="text-3xl font-bold text-center mb-6">Vehicle Accessories Shop</h2>
-      
+
       <div className="text-center mb-6">
         <input
           type="text"
@@ -33,7 +35,6 @@ const Shop = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 px-20">
@@ -52,7 +53,7 @@ const Shop = () => {
                 <h3 className="card-title">{product.name}</h3>
                 <p>{product.description}</p>
                 <p className="text-red-600 font-semibold">Price: ${product.price}</p>
-                <button className="btn btn-primary mt-4">Buy Now</button>
+                <button className="btn btn-primary mt-4" onClick={() => addToCart(product)}>Add to Cart</button>
               </div>
             </div>
           ))
@@ -60,6 +61,13 @@ const Shop = () => {
           <p className="text-center col-span-full">No products found.</p>
         )}
       </div>
+
+      {/* Cart Notification Popup */}
+      {showPopup && popupProduct && (
+        <div className="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg">
+          <p>{popupProduct.name} has been added to your cart!</p>
+        </div>
+      )}
     </div>
   );
 };
